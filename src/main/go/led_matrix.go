@@ -1,19 +1,19 @@
 package main
 
 import (
-  "bufio"
-	"net"
-  "net/textproto"
-	"log"
-	"os"
 	"bitbucket.org/gmcbay/i2c/HT16K33"
+	"bufio"
+	"log"
+	"net"
+	"net/textproto"
+	"os"
 )
 
 func main() {
 	devices, err := HT16K33.ParseDevices("0x70:1")
 
 	if err != nil {
-		log.Print("Error connecting to 8x8 LED matrix: %s\n", err.Error());
+		log.Print("Error connecting to 8x8 LED matrix: %s\n", err.Error())
 		os.Exit(1)
 	}
 
@@ -35,20 +35,20 @@ func main() {
 			os.Exit(1)
 		}
 
-    reader := bufio.NewReader(conn)
-    textproto := textproto.NewReader(reader)
-    var command string
-    for err == nil { 
-	  	command, err = textproto.ReadLine()
-	  	if err == nil {
-	  		for i := 0; i < len(command) && i < 64; i++ {
-	  			devices[0].SetPixel(byte(i / 8), byte(i % 8), command[i] == '*');
-	  		}
-	  		devices[0].WriteDisplay()
-  		} else {
-  			log.Print("Error reading:", err.Error())
-  			conn.Close()
-  		}
-    }
+		reader := bufio.NewReader(conn)
+		textproto := textproto.NewReader(reader)
+		var command string
+		for err == nil {
+			command, err = textproto.ReadLine()
+			if err == nil {
+				for i := 0; i < len(command) && i < 64; i++ {
+					devices[0].SetPixel(byte(i/8), byte(i%8), command[i] == '*')
+				}
+				devices[0].WriteDisplay()
+			} else {
+				log.Print("Error reading:", err.Error())
+				conn.Close()
+			}
+		}
 	}
 }
