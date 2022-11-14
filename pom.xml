@@ -14,7 +14,7 @@
 
 	<properties>
 		<camunda.version>7.6.0</camunda.version>
-		<spring.version>3.2.5.RELEASE</spring.version>
+		<spring.version>3.2.18.RELEASE</spring.version>
 		<mockito.version>1.10.19</mockito.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
